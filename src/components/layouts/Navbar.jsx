@@ -11,8 +11,6 @@ function Navbar({title}) {
                 {title}
             </NavLink>
            </div>
-
-
            <div className="flex-1 px-2 mx-2">
             <div className="flex justify-end">
                 <NavLink to="/" className="btn btn-ghost btn-sm rounded-btn text-white">
