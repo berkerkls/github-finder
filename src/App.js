@@ -8,12 +8,9 @@ import NotFound from "./pages/NotFound";
 function App() {
   return (
     <Router>
-      <div
-        className="flex flex-col justify-between h-screen"
-        style={{ backgroundColor: "#f4f4f4" }}
-      >
+      <div className="flex flex-col justify-between h-screen bg-white">
         <Navbar />
-        <main className="container mx-auto px-3 pb-12">
+        <main className="container mx-auto px-3 pb-12 bg-white">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
