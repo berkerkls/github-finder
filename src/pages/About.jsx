@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+let service_url = process.env.REACT_APP_URL;
+console.log("test", service_url);
 function About() {
   return (
     <div>
