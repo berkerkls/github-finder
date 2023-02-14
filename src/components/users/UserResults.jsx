@@ -3,7 +3,6 @@ import { useEffect, useContext } from "react";
 import Loading from "../Loading";
 import UserItem from "./UserItem";
 import GithubContext from "../../context/github/GithubContext";
-import { logDOM } from "@testing-library/react";
 
 function UserResults() {
   const { users, loading, fetchUsers } = useContext(GithubContext);

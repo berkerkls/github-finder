@@ -1,8 +1,8 @@
 import { createContext, useReducer } from "react";
 import githubReducer from "./GithubReducer";
 const GithubContext = createContext();
-const url = process.env.REACT_APP_GITHUB_URL;
-const token = process.env.REACT_APP_GITHUB_TOKEN;
+const url = process.env.REACT_APP_URL;
+const token = process.env.REACT_APP_TOKEN;
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
@@ -18,11 +18,13 @@ export const GithubProvider = ({ children }) => {
       },
     });
     const data = await response.json();
-    dispatch({
-      type: "GET_USERS",
-      payload: data,
-      loading: false,
-    });
+    if (response.status === 200) {
+      dispatch({
+        type: "GET_USERS",
+        payload: data,
+        loading: false,
+      });
+    }
   };
 
   return (
