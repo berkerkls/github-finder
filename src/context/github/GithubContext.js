@@ -1,35 +1,61 @@
 import { createContext, useReducer } from "react";
 import githubReducer from "./GithubReducer";
 const GithubContext = createContext();
+
 const url = process.env.REACT_APP_URL;
-const token = process.env.REACT_APP_TOKEN;
+const github_token = process.env.REACT_APP_TOKEN;
+
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
-    loading: true,
+    loading: false,
+    token: github_token,
   };
 
   const [state, dispatch] = useReducer(githubReducer, initialState);
 
-  const fetchUsers = async () => {
-    const response = await fetch(`${url}/users`, {
+  const searchUsers = async (text) => {
+    setLoading();
+    const params = new URLSearchParams({
+      q: text,
+    });
+    const response = await fetch(`${url}/search/users?${params}`, {
       headers: {
-        Authorization: `token ${token}`,
+        Authorization: `${github_token}`,
       },
     });
-    const data = await response.json();
+    const { items } = await response.json();
+
+    console.log("user", items);
     if (response.status === 200) {
       dispatch({
         type: "GET_USERS",
-        payload: data,
+        payload: items,
         loading: false,
       });
     }
   };
 
+  const clearUsers = () =>
+    dispatch({
+      type: "delete_users",
+      payload: [],
+    });
+
+  const setLoading = () =>
+    dispatch({
+      type: "set_loading",
+      loading: true,
+    });
+
   return (
     <GithubContext.Provider
-      value={{ users: state.users, loading: state.loading, fetchUsers }}
+      value={{
+        users: state.users,
+        loading: state.loading,
+        searchUsers,
+        clearUsers,
+      }}
     >
       {children}
     </GithubContext.Provider>
