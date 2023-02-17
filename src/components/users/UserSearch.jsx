@@ -16,7 +16,7 @@ function UserSearch() {
       setAlert("Please enter something", "error");
     } else {
       searchUsers(text);
-      setAlert("Search has been created successfully", "success");
+      setAlert("Search successfully done", "success");
       setText("");
     }
   };
