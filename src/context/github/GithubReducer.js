@@ -21,12 +21,12 @@ const githubReducer = (state, action) => {
     case "set_loading":
       return {
         ...state,
-        loading: action.loading,
+        loading: action.payload,
       };
     case "delete_users":
       return {
         ...state,
-        users: action.payload,
+        users: [],
         loading: false,
       };
     default:
