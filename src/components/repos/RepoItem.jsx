@@ -20,7 +20,7 @@ function RepoItem({ repo }) {
             {name}
           </a>
         </h3>
-        <p className="mb-3">Description</p>
+        <p className="mb-3">{description}</p>
         <div>
           <div className="mr-2 badge badge-info badge-lg">
             <FaEye className="mr-2" />
