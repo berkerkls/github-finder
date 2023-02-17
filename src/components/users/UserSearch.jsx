@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
+import AlertContext from "../../context/alert/AlertContext";
 import GithubContext from "../../context/github/GithubContext";
 
 function UserSearch() {
   const { users, searchUsers, clearUsers } = useContext(GithubContext);
+  const { setAlert } = useContext(AlertContext);
   const [text, setText] = useState("");
 
   const handleChange = (e) => {
@@ -11,13 +13,17 @@ function UserSearch() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      alert(`Please enter something`);
+      setAlert("Please enter something", "error");
     } else {
       searchUsers(text);
+      setAlert("Search has been created successfully", "success");
       setText("");
     }
   };
-  const handleClear = () => clearUsers();
+  const handleClear = () => {
+    clearUsers();
+    setAlert("Results has been cleared", "success");
+  };
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8">
       <div>
