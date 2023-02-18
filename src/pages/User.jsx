@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import { useParams } from "react-router";
 import RepoList from "../components/repos/RepoList";
+import { getUserandRepos } from "../context/github/GithubActions";
 function User() {
   const params = useParams();
-  const { getUser, user, loading, getRepos, repos } = useContext(GithubContext);
+  const { user, loading, repos, dispatch } = useContext(GithubContext);
   const {
     name,
     type,
@@ -26,9 +27,15 @@ function User() {
   } = user;
 
   useEffect(() => {
-    getUser(params.login);
-    getRepos(params.login);
-  }, []);
+    dispatch({ type: "set_loading", loading: true });
+    const userAndRepos = async () => {
+      const userData = await getUserandRepos(params.login);
+      dispatch({ type: "GET_USER", payload: userData.user });
+      dispatch({ type: "GET_REPOS", payload: userData.repos });
+    };
+
+    userAndRepos();
+  }, [dispatch, params.login]);
   if (loading) {
     return <Loading />;
   }
